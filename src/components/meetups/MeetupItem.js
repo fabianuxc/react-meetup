@@ -1,11 +1,17 @@
 import { useFetch } from "./../../util-hooks/useFetch";
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
+import { useState } from "react";
 
 export default function MeetupItem() {
   const { data } = useFetch({
     url: "/data.json",
   });
+
+  const [isFavourited, setIsFavourited] = useState(false);
+  const handlerFavourite = () => {
+    setIsFavourited((prevState) => !prevState); 
+  };
 
   if (!data) return <p>Loading...</p>;
   let [item] = data;
@@ -22,7 +28,7 @@ export default function MeetupItem() {
           <p>{item.description}</p>
         </div>
         <div className={classes.actions}>
-          <button>Add to favorites</button>
+          <button onClick={handlerFavourite}>{isFavourited ? "Remove from Favourites" : "Add to Favourites"}</button>
         </div>
       </Card>
     </li>

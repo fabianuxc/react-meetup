@@ -8,10 +8,13 @@ import {
 import classes from "./MainNavigation.module.css";
 
 import React, { useState, useEffect } from "react";
+import { useFavourites } from "../../providers/favourites-context/favourites-context-provider";
 
 export default function MainNavigation() {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const { favourites } = useFavourites();
 
   useEffect(() => {
     const handleHeaderScroll = () => {
@@ -49,7 +52,7 @@ export default function MainNavigation() {
           </li>
           <li>
             <Link to="/favorites">
-              My Favorites <span className={classes.badge}>{0}</span>
+              My Favorites <span className={classes.badge}>{favourites.length}</span>
             </Link>
           </li>
         </ul>

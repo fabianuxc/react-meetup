@@ -16,7 +16,6 @@ export function useStorage() {
     localStorage.setItem("meetups", JSON.stringify(updatedMeetups));
   };
 
-
   return {
     meetups,
     addMeetup,

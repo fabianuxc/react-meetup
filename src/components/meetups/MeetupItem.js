@@ -1,17 +1,22 @@
 import { useFetch } from "./../../util-hooks/useFetch";
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
+import { useState } from "react";
+import { useFavourites } from "../../providers/favourites-context/favourites-context-provider";
 
-export default function MeetupItem() {
-  const { data } = useFetch({
-    url: "/data.json",
-  });
+export default function MeetupItem({ data: item }) {
+  const { addFavourite, removeFavourite, isFavourited } = useFavourites();
 
-  if (!data) return <p>Loading...</p>;
-  let [item] = data;
+  const handlerFavourite = () => {
+    if (isFavourited(item.id)) {
+      removeFavourite(item.id);
+    } else {
+      addFavourite(item);
+    }
+  };
 
   return (
-    <li className={classes.item} data-test='meet-up-item'>
+    <li className={classes.item} data-test="meet-up-item">
       <Card>
         <div className={classes.image}>
           <img src={item.image} alt={item.title} />
@@ -22,7 +27,11 @@ export default function MeetupItem() {
           <p>{item.description}</p>
         </div>
         <div className={classes.actions}>
-          <button>Add to favorites</button>
+          <button onClick={handlerFavourite}>
+            {isFavourited(item.id)
+              ? "Remove from favorites"
+              : "Add to favorites"}
+          </button>
         </div>
       </Card>
     </li>

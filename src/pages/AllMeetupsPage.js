@@ -1,22 +1,23 @@
 import MeetupItem from "../components/meetups/MeetupItem";
 import { useFetch } from "../util-hooks/useFetch";
+import { useStorage } from "../util-hooks/useStorage";
 import classes from "./../components/meetups/MeetupList.module.css";
 
 export default function AllMeetupsPage() {
-  const { data } = useFetch({
-    url: "/data.json",
-  });
 
-  if (!data) return <p>Loading...</p>;
+  const { meetups } = useStorage();
+
+ if (meetups.length === 0) {
+    return <p>No meetups found. Create a new one!</p>;
+ }
 
   return (
     <section>
       <h1>All Meetups</h1>
       <ul className={classes.list}>
-        <MeetupItem data={data[0]} />
-        <MeetupItem data={data[1]} />
-        <MeetupItem data={data[2]} />
-        <MeetupItem data={data[0]} />
+        {meetups.map((meetup) => (
+          <MeetupItem key={meetup.id} data={meetup} />
+        ))}
       </ul>
     </section>
   );

@@ -1,57 +1,56 @@
-import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE } from "./../../utils/constants";
+import { Link } from "react-router-dom";
+import {
+  ALL_MEETUP_PAGE,
+  FAVORITES_PAGE,
+  NEW_MEETUP_PAGE,
+} from "./../../utils/constants";
 
 import classes from "./MainNavigation.module.css";
 
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-
-export default function MainNavigation({ setPage }) {
+export default function MainNavigation() {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-
   useEffect(() => {
-
     const handleHeaderScroll = () => {
       if (window.scrollY > lastScrollY) {
         setShowHeader(false);
       } else {
         setShowHeader(true);
       }
-  
+
       setLastScrollY(window.scrollY);
-  
     };
-    
-      window.addEventListener("scroll", handleHeaderScroll)
 
-      return () => {
-        window.removeEventListener("scroll", handleHeaderScroll)
-      }
+    window.addEventListener("scroll", handleHeaderScroll);
 
-  }, [lastScrollY])
+    return () => {
+      window.removeEventListener("scroll", handleHeaderScroll);
+    };
+  }, [lastScrollY]);
   return (
-    
-    <header className={`${classes.header} ${showHeader ? classes.show : classes.hide}`} data-test="navigation-header">
+    <header
+      className={`${classes.header} ${
+        showHeader ? classes.show : classes.hide
+      }`}
+      data-test="navigation-header"
+    >
       <div className={classes.logo}>React Meetups</div>
       <nav>
         <ul>
           <li>
-            <a href="#" onClick={() => setPage(ALL_MEETUP_PAGE)}>
-              All Meetups
-            </a>
+            <Link to="/all-meetups">All Meetups</Link>
           </li>
 
           <li>
-            <a href="#" onClick={() => setPage(NEW_MEETUP_PAGE)}>
-              Add New Meetup
-            </a>
+            <Link to="/new-meetups">New Meetup</Link>
           </li>
           <li>
-            <a href="#" onClick={() => setPage(FAVORITES_PAGE)}>
-              My Favorites
-              <span className={classes.badge}>{0}</span>
-            </a>
+            <Link to="/favorites">
+              My Favorites <span className={classes.badge}>{0}</span>
+            </Link>
           </li>
         </ul>
       </nav>

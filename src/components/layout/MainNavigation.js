@@ -52,7 +52,8 @@ export default function MainNavigation() {
           </li>
           <li>
             <Link to="/favorites">
-              My Favorites <span className={classes.badge}>{favourites.length}</span>
+              My Favorites{" "}
+              <span className={classes.badge}>{favourites.length}</span>
             </Link>
           </li>
         </ul>

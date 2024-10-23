@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useFavourites } from "../../providers/favourites-context/favourites-context-provider";
 
 export default function MeetupItem({ data: item }) {
-
   const { addFavourite, removeFavourite, isFavourited } = useFavourites();
 
   const handlerFavourite = () => {
@@ -15,7 +14,6 @@ export default function MeetupItem({ data: item }) {
       addFavourite(item);
     }
   };
-
 
   return (
     <li className={classes.item} data-test="meet-up-item">
@@ -30,7 +28,9 @@ export default function MeetupItem({ data: item }) {
         </div>
         <div className={classes.actions}>
           <button onClick={handlerFavourite}>
-            {isFavourited ? "Remove from favorites" : "Add to favorites"}
+            {isFavourited(item.id)
+              ? "Remove from favorites"
+              : "Add to favorites"}
           </button>
         </div>
       </Card>

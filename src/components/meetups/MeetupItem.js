@@ -28,7 +28,7 @@ export default function MeetupItem() {
           <p>{item.description}</p>
         </div>
         <div className={classes.actions}>
-          <button onClick={handlerFavourite}>{isFavourited ? "Remove from Favourites" : "Add to Favourites"}</button>
+          <button onClick={handlerFavourite}>{isFavourited ? "Remove from favorites" : "Add to favorites"}</button>
         </div>
       </Card>
     </li>
